@@ -4,8 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
-const IS_DEV_SERVER = !!process.env.WEBPACK_DEV_SERVER
-
 module.exports = (env) => {
   const isProduction = env.production === true
 
@@ -14,13 +12,10 @@ module.exports = (env) => {
     devtool: isProduction ? false : 'eval-cheap-source-map',
     mode: isProduction ? 'production' : 'development',
 
-    entry: {
-      main: ['./index.ts']
-    },
+    entry: path.resolve(__dirname, '../src/index.ts'),
 
     output: {
-      path: path.resolve(process.cwd(), 'dist'),
-      publicPath: IS_DEV_SERVER ? '/' : './',
+      path: path.resolve(__dirname, '../dist'),
       assetModuleFilename: 'img/[name].[hash:7][ext]'
     },
 
